@@ -34,3 +34,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Markdown
+*.md
+!README.md
