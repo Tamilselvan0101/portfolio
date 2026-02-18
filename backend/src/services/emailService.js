@@ -15,6 +15,8 @@ class EmailService {
           user: config.email.user,
           pass: config.email.password,
         },
+        // Force IPv4 to avoid ENETUNREACH on platforms without IPv6 support (e.g., Render)
+        family: 4,
       });
     } catch (error) {
       console.error('Email service initialization failed:', error.message);
