@@ -1,233 +1,210 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Briefcase, Calendar, MapPin, Award } from 'lucide-react';
+import { Briefcase, GraduationCap, Award, MapPin, Calendar } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const Experience = () => {
   const { experience, education, certifications, achievements } = portfolioData;
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
 
   return (
-    <section id="experience" ref={ref} className="py-20 md:py-32 bg-secondary/50">
-      <div className="container mx-auto px-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-display font-bold mb-4 gradient-text">
-              Experience & Education
-            </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-accent-blue to-accent-violet mx-auto" />
-          </motion.div>
+    <section id="experience" className="relative py-24 md:py-32">
+      <div className="container mx-auto px-6" ref={ref}>
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-display font-bold mb-4 gradient-text">
+            Experience & Education
+          </h2>
+          <div className="section-divider mb-6" />
+        </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Work Experience */}
-            <div>
-              <h3 className="text-2xl font-bold mb-8 flex items-center gap-2 text-accent-blue">
-                <Briefcase className="w-6 h-6" />
-                Work Experience
-              </h3>
-              <motion.div
-                initial="hidden"
-                animate={inView ? "show" : "hidden"}
-                variants={{
-                  hidden: { opacity: 0 },
-                  show: {
-                    opacity: 1,
-                    transition: {
-                      staggerChildren: 0.15,
-                      delayChildren: 0.2
-                    }
-                  }
-                }}
-                className="space-y-6"
-              >
+        <div className="max-w-4xl mx-auto">
+          {/* Work Experience */}
+          <div className="mb-16">
+            <motion.h3
+              initial={{ opacity: 0, x: -20 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5 }}
+              className="text-2xl font-display font-semibold mb-8 flex items-center gap-3"
+            >
+              <Briefcase className="w-6 h-6 text-accent-warm" />
+              <span className="text-primary">Work Experience</span>
+            </motion.h3>
+
+            <div className="relative ml-6 md:ml-8">
+              {/* Timeline line */}
+              <div className="absolute left-0 top-2 bottom-2 w-0.5 bg-gradient-to-b from-accent-warm via-accent-rose to-accent-purple" />
+
+              <div className="space-y-8">
                 {experience.map((exp, index) => (
                   <motion.div
                     key={index}
-                    variants={{
-                      hidden: { opacity: 0, x: -40 },
-                      show: {
-                        opacity: 1,
-                        x: 0,
-                        transition: {
-                          type: "spring",
-                          stiffness: 100,
-                          damping: 15
-                        }
-                      }
-                    }}
-                    whileHover={{
-                      x: 5,
-                      scale: 1.02,
-                      transition: { type: "spring", stiffness: 300, damping: 20 }
-                    }}
-                    className="glass rounded-xl p-6 hover:bg-white/10 transition-all duration-300 hover:shadow-lg hover:shadow-accent-blue/10 cursor-pointer border-l-2 border-transparent hover:border-accent-blue"
+                    initial={{ opacity: 0, x: -40 }}
+                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.15 * index }}
+                    className="relative pl-8"
                   >
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h4 className="text-xl font-bold text-primary">{exp.role}</h4>
-                        <p className="text-accent-cyan font-semibold">{exp.company}</p>
+                    {/* Timeline dot */}
+                    <div className="absolute left-[-5px] top-2 w-3 h-3 rounded-full bg-accent-warm shadow-lg shadow-accent-warm/50 z-10" />
+                    <div className="absolute left-[-9px] top-[-2px] w-5 h-5 rounded-full bg-accent-warm/20 animate-ping" style={{ animationDuration: '3s' }} />
+
+                    <div className="glass rounded-2xl p-6 depth-shadow hover:bg-white/5 transition-all duration-500 group gradient-border">
+                      {/* Header */}
+                      <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                        <div>
+                          <h4 className="text-xl font-display font-bold text-primary group-hover:text-accent-warm transition-colors">
+                            {exp.role}
+                          </h4>
+                          <p className="text-accent-warm font-medium">{exp.company}</p>
+                        </div>
+                        <div className="text-right">
+                          <div className="flex items-center gap-1.5 text-secondary text-sm">
+                            <Calendar className="w-3.5 h-3.5" />
+                            {exp.period}
+                          </div>
+                          <div className="flex items-center gap-1.5 text-secondary text-xs mt-1">
+                            <MapPin className="w-3 h-3" />
+                            {exp.location}
+                          </div>
+                        </div>
                       </div>
-                      <span className="text-xs px-2 py-1 bg-accent-green/10 text-accent-green rounded">
+
+                      <span className="inline-block text-xs font-mono text-accent-teal bg-accent-teal/10 px-2.5 py-1 rounded-full mb-3">
                         {exp.type}
                       </span>
-                    </div>
 
-                    <div className="flex items-center gap-4 text-sm text-secondary mb-3">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {exp.period}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" />
-                        {exp.location}
-                      </span>
-                    </div>
+                      <p className="text-secondary text-sm mb-4">{exp.description}</p>
 
-                    <p className="text-secondary text-sm mb-3">{exp.description}</p>
+                      {/* Achievements */}
+                      <ul className="space-y-2 mb-4">
+                        {exp.achievements.map((achievement, i) => (
+                          <motion.li
+                            key={i}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={inView ? { opacity: 1, x: 0 } : {}}
+                            transition={{ duration: 0.3, delay: 0.15 * index + 0.05 * i }}
+                            className="flex items-start gap-2.5 text-sm text-secondary"
+                          >
+                            <div className="w-1.5 h-1.5 rounded-full bg-accent-rose mt-1.5 flex-shrink-0" />
+                            {achievement}
+                          </motion.li>
+                        ))}
+                      </ul>
 
-                    <motion.div
-                      initial="hidden"
-                      animate={inView ? "show" : "hidden"}
-                      variants={{
-                        hidden: { opacity: 0 },
-                        show: {
-                          opacity: 1,
-                          transition: {
-                            staggerChildren: 0.08,
-                            delayChildren: index * 0.15 + 0.3
-                          }
-                        }
-                      }}
-                      className="space-y-2"
-                    >
-                      {exp.achievements.slice(0, 3).map((achievement, i) => (
-                        <motion.div
-                          key={i}
-                          variants={{
-                            hidden: { opacity: 0, x: -15 },
-                            show: { opacity: 1, x: 0 }
-                          }}
-                          className="flex items-start gap-2 text-sm text-secondary"
-                        >
-                          <span className="text-accent-cyan">→</span>
-                          {achievement}
-                        </motion.div>
-                      ))}
-                    </motion.div>
-
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      {exp.technologies.slice(0, 5).map((tech, i) => (
-                        <span key={i} className="text-xs px-2 py-1 bg-tertiary text-secondary rounded">
-                          {tech}
-                        </span>
-                      ))}
+                      {/* Technologies */}
+                      <div className="flex flex-wrap gap-2">
+                        {exp.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className="text-xs font-mono px-2.5 py-1 rounded-lg bg-accent-purple/10 text-accent-purple"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </motion.div>
                 ))}
-              </motion.div>
-            </div>
-
-            {/* Education & Achievements */}
-            <div className="space-y-8">
-              {/* Education */}
-              <div>
-                <h3 className="text-2xl font-bold mb-6 flex items-center gap-2 text-accent-violet">
-                  <Award className="w-6 h-6" />
-                  Education
-                </h3>
-                <motion.div
-                  initial="hidden"
-                  animate={inView ? "show" : "hidden"}
-                  variants={{
-                    hidden: { opacity: 0 },
-                    show: {
-                      opacity: 1,
-                      transition: {
-                        staggerChildren: 0.15,
-                        delayChildren: 0.3
-                      }
-                    }
-                  }}
-                  className="space-y-4"
-                >
-                  {education.map((edu, index) => (
-                    <motion.div
-                      key={index}
-                      variants={{
-                        hidden: { opacity: 0, x: 40 },
-                        show: {
-                          opacity: 1,
-                          x: 0,
-                          transition: {
-                            type: "spring",
-                            stiffness: 100,
-                            damping: 15
-                          }
-                        }
-                      }}
-                      whileHover={{
-                        x: -5,
-                        scale: 1.02,
-                        transition: { type: "spring", stiffness: 300, damping: 20 }
-                      }}
-                      className="glass rounded-xl p-6 hover:shadow-lg hover:shadow-accent-violet/10 cursor-pointer border-l-2 border-transparent hover:border-accent-violet"
-                    >
-                      <h4 className="text-lg font-bold text-primary mb-1">{edu.degree}</h4>
-                      <p className="text-accent-violet font-semibold mb-2">{edu.field}</p>
-                      <p className="text-sm text-secondary mb-2">{edu.institution}</p>
-                      <div className="flex items-center gap-4 text-sm text-secondary">
-                        <span>{edu.period}</span>
-                        <span className="text-accent-green">{edu.grade}</span>
-                      </div>
-                    </motion.div>
-                  ))}
-                </motion.div>
               </div>
-
-              {/* Certifications */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                <h3 className="text-xl font-bold mb-4 text-accent-cyan">Certifications</h3>
-                <div className="space-y-2">
-                  {certifications.map((cert, i) => (
-                    <div key={i} className="glass rounded-lg p-3 flex items-center gap-2">
-                      <div className="w-2 h-2 bg-accent-cyan rounded-full" />
-                      <span className="text-sm text-secondary">{cert}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* Achievements */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.5 }}
-              >
-                <h3 className="text-xl font-bold mb-4 text-accent-green">Key Achievements</h3>
-                <div className="space-y-3">
-                  {achievements.map((achievement, i) => (
-                    <div key={i} className="glass rounded-lg p-3 flex items-start gap-2">
-                      <span className="text-accent-green">★</span>
-                      <span className="text-sm text-secondary">{achievement}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
             </div>
+          </div>
+
+          {/* Education */}
+          <div className="mb-16">
+            <motion.h3
+              initial={{ opacity: 0, x: -20 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="text-2xl font-display font-semibold mb-8 flex items-center gap-3"
+            >
+              <GraduationCap className="w-6 h-6 text-accent-purple" />
+              <span className="text-primary">Education</span>
+            </motion.h3>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {education.map((edu, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.4 + 0.1 * index }}
+                  className="card-3d"
+                >
+                  <div className="card-3d-inner glass rounded-2xl p-6 h-full depth-shadow hover:bg-white/5 transition-all duration-500">
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <h4 className="text-lg font-display font-bold text-primary">{edu.degree}</h4>
+                        <p className="text-accent-purple font-medium text-sm">{edu.field}</p>
+                      </div>
+                      <span className="text-accent-warm font-display font-bold text-lg">{edu.grade}</span>
+                    </div>
+                    <p className="text-secondary text-sm mb-1">{edu.institution}</p>
+                    <p className="text-secondary text-xs mb-4 flex items-center gap-1.5">
+                      <Calendar className="w-3 h-3" /> {edu.period}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {edu.highlights.map((h) => (
+                        <span key={h} className="text-xs font-mono px-2.5 py-1 rounded-lg bg-accent-teal/10 text-accent-teal">
+                          {h}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Achievements & Certifications */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Certifications */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="glass rounded-2xl p-6 depth-shadow"
+            >
+              <h3 className="text-lg font-display font-semibold mb-4 flex items-center gap-2 text-accent-warm">
+                📜 Certifications
+              </h3>
+              <ul className="space-y-3">
+                {certifications.map((cert, i) => (
+                  <li key={i} className="flex items-center gap-3 text-secondary text-sm">
+                    <div className="w-2 h-2 rounded-full bg-accent-warm flex-shrink-0" />
+                    {cert}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Achievements */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.7 }}
+              className="glass rounded-2xl p-6 depth-shadow"
+            >
+              <h3 className="text-lg font-display font-semibold mb-4 flex items-center gap-2 text-accent-rose">
+                <Award className="w-5 h-5" /> Achievements
+              </h3>
+              <ul className="space-y-3">
+                {achievements.map((achievement, i) => (
+                  <li key={i} className="flex items-start gap-3 text-secondary text-sm">
+                    <div className="w-2 h-2 rounded-full bg-accent-rose mt-1.5 flex-shrink-0" />
+                    {achievement}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
           </div>
         </div>
       </div>
-    </section >
+    </section>
   );
 };
 

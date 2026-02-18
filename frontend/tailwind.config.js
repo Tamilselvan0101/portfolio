@@ -17,27 +17,23 @@ export default {
         secondary: 'var(--color-text-secondary)',
       },
       colors: {
-        // AI-themed color palette
         dark: {
-          900: '#0a0a0f',
-          800: '#13141b',
-          700: '#1a1b26',
+          900: '#0b0b14',
+          800: '#12121f',
+          700: '#1a1a2e',
           600: '#24273a',
         },
         accent: {
-          blue: '#00d4ff',
-          violet: '#a78bfa',
-          cyan: '#06b6d4',
-          green: '#10b981',
+          warm: '#f59e0b',
+          rose: '#f43f5e',
+          gold: '#d4a574',
           purple: '#8b5cf6',
+          teal: '#14b8a6',
         },
-        neural: {
-          gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        }
       },
       fontFamily: {
-        display: ['Orbitron', 'sans-serif'],
-        body: ['Poppins', 'system-ui', 'sans-serif'],
+        display: ['Space Grotesk', 'sans-serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       animation: {
@@ -47,6 +43,8 @@ export default {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 6s ease-in-out infinite',
         'glow': 'glow 2s ease-in-out infinite alternate',
+        'spin-slow': 'spin 20s linear infinite',
+        'gradient-shift': 'gradientShift 8s ease infinite',
       },
       keyframes: {
         fadeIn: {
@@ -66,13 +64,16 @@ export default {
           '50%': { transform: 'translateY(-20px)' },
         },
         glow: {
-          '0%': { boxShadow: '0 0 5px #00d4ff, 0 0 10px #00d4ff' },
-          '100%': { boxShadow: '0 0 20px #00d4ff, 0 0 30px #00d4ff' },
+          '0%': { boxShadow: '0 0 5px #f59e0b, 0 0 10px #f59e0b' },
+          '100%': { boxShadow: '0 0 20px #f59e0b, 0 0 40px #f43f5e' },
+        },
+        gradientShift: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
         },
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'neural-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300d4ff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
       },
     },
   },
