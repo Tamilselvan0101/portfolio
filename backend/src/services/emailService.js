@@ -10,7 +10,9 @@ class EmailService {
   initialize() {
     try {
       this.transporter = nodemailer.createTransport({
-        service: config.email.service,
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
         auth: {
           user: config.email.user,
           pass: config.email.password,
